@@ -21,7 +21,7 @@ const InjectProtectedNode = ({ authSelector }) => {
   return (
     <AnimatedComponent className="page animate-fade" animationClass="in">
       {/* <Sidebar /> */}
-      <Header />
+      {/* <Header /> */}
       {/* <Login/> */}
       <PageWrapper className={`${isSidebarVisible ? "" : "sidebar-none"}`}>
         <Suspense fallback={<Loader top="64px" height="calc(100% - 64px)" />}>

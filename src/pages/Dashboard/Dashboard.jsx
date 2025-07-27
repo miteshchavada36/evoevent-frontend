@@ -13,6 +13,7 @@ import {
   FormField,
 } from "../../components/Form/FormField";
 import { Row } from "react-bootstrap";
+import Header from "../../components/Header";
 
 const schema = yup.object().shape({
   name: yup.string().required('Event name is required'),
@@ -189,7 +190,7 @@ function Dashboard() {
                     placeholder="Ex. John's birthday"
                   />
               </span>
-              <img src="/favicon.png" alt="User" className="userlogo" />
+              <Header />
             </div>
           </div>
         </div>
