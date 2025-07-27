@@ -1,0 +1,50 @@
+.status-badge.bg-upcoming {
+  color: #fff;
+  background-color: #6a1b9a;
+}
+
+.status-badge.bg-color-revert.badge.bg-success {
+  color: #2fb344 !important;
+  background: #fff !important;
+  border: 1px solid #e0e0e0;
+}
+
+.status-badge.bg-color-revert.badge.bg-warning {
+  color: #ff7f3f !important;
+  background: #fff !important;
+  border: 1px solid #e0e0e0;
+}
+
+.status-badge.bg-color-revert.badge.bg-upcoming {
+  color: #6a1b9a !important;
+  background: #fff !important;
+  border: 1px solid #e0e0e0;
+}
+
+.admin-contacts-container .admin-contacts-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.admin-contacts-container{
+  max-width: 98.7% !important;
+  padding: 0;
+  margin-left: 7px;
+}
+
+@media screen and (max-width: 768px) {
+  .admin-contacts-container .admin-contacts-content {
+    display: block; 
+    margin: auto;
+}
+.contact_chart{
+  margin: auto;
+}
+}
+
+.custom-bg-blue{
+  background-color: #2F2F8F;
+}
+

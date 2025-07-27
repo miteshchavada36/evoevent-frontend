@@ -1,0 +1,110 @@
+body.login {
+    background-color: #f0f2f5;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #eee;
+  }
+  
+  .login-card {
+    background: #fff2eb;
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.05);
+  }
+  
+  .login-title {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .brand-text {
+    color: #f53e15;
+    font-style: italic;
+    font-weight: bold;
+  }
+  
+  .login-subtitle {
+    text-align: center;
+    color: #777;
+    margin-bottom: 30px;
+    font-size: 14px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: block;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  .form-control.is-invalid {
+    border-color: #dc3545;
+  }
+  
+  .invalid-feedback {
+    font-size: 12px;
+    color: #dc3545;
+    margin-top: 5px;
+  }
+  
+  .form-remember {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  
+  .form-remember input {
+    margin-right: 6px;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: linear-gradient(90deg, #f53e15, #fd7535);
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: 0.2s ease-in-out;
+  }
+  
+  .login-button:hover {
+    opacity: 0.95;
+  }
+  
+  .forgot-password {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+  }
+  
+  .error-msg {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  
