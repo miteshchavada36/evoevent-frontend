@@ -61,47 +61,29 @@ const Header = () => {
     <Navbar
       as="header"
       expand="md"
-      className={`d-none d-lg-flex d-print-none sticky-top border-bottom ${
-        isSidebarVisible ? "" : "hide"
-      } `}
+      className={`d-none d-lg-flex`}
     >
       <Container fluid>
-        <Nav className="flex-row order-md-last">
+        <Nav className="flex-row">
           <Nav className="d-none d-md-flex">
             <>
-              <Dropdown className="nav-link cursor-pointer">
+              <Dropdown className="cursor-pointer">
                 <Dropdown.Toggle
                   as={"a"}
-                  bsPrefix={`nav-link d-flex lh-1 text-reset p-0 dropdown-toggle arrow-top`}
+                  bsPrefix={`d-flex lh-1 p-0`}
                 >
                   <Avatar
                     name={authSelector.first_name}
-                    profilePicture={user_details?.profile_picture || ""}
                   ></Avatar>
-
-                  <div className="d-none d-xl-block px-2">
-                    <div className="fs-3">
-                      {authSelector.first_name} {authSelector.last_name}
-                    </div>
-                    <div className="mt-1 small text-muted">
-                      {authSelector?.role?.name}
-                    </div>
-                  </div>
                 </Dropdown.Toggle>
                 <Dropdown.Menu
                   align="end"
-                  className="dropdown-menu-end dropdown-menu-arrow"
+                  className="dropdown-menu-arrow"
                 >
                   {profile_menu.map((item, i) => {
                     if (item.slug === "logout") {
                       return (
                         <div>
-                          <Dropdown.Item
-                            key={item.slug}
-                            onClick={() => setShowProfile(true)}
-                          >
-                            <IconUserCircle className="icon me-2" /> Profile
-                          </Dropdown.Item>
                           <Dropdown.Item key={item.slug} onClick={logout}>
                             {item.icon}
                             {item.name}

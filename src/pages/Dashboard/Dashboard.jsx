@@ -31,6 +31,13 @@ function Dashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(null); 
   const [events, setEvents] = useState([]);
+  const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filters, setFilters] = useState({
+    categoryId: null,
+    startDate: null,
+    endDate: null
+  });
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -51,7 +58,28 @@ function Dashboard() {
     },
     resolver: yupResolver(schema),
   });
-
+  const loadEvents = async () => {
+    setLoading(true);
+    try {
+      await EventApi.events({
+        token,
+        page,
+        search: searchTerm,
+        categoryId: filters.categoryId,
+        startDate: filters.startDate,
+        endDate: filters.endDate,
+        onSuccess: (data) => {
+          setEvents(data.data); // actual records
+          setPagination(data); // set full pagination response
+          setCurrentPage(data.current_page); // set current page
+        }
+      });
+    } catch (error) {
+      console.error("Failed to load events:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(()=>{
     const fetchCategories = async () => {
       try {
@@ -66,26 +94,26 @@ function Dashboard() {
     if (token) fetchCategories();
   },[token]);
 
-  const fetchEvents = async (page = 1) => {
-    setLoading(true);
-    try {
-      const response = await EventApi.events({ token, page }); // Adjust as needed
-      setEvents(response.data);
-      setPagination(response.data);
-      setCurrentPage(response.data.current_page);
-    } catch (error) {
-      console.error("Failed to fetch events", error);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    loadEvents();
+  }, [page, searchTerm, filters]);
+  
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      loadEvents();
+    }, 500); // debounce time
+  
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm, page, filters]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage !== currentPage && newPage > 0 && newPage <= pagination.last_page) {
+      setPage(newPage); // this will trigger useEffect and reload
     }
   };
   
-  const handlePageChange = (page) => {
-    if (page !== currentPage) fetchEvents(page);
-  };
-  
   useEffect(() => {
-    if (token) fetchEvents();
+    if (token) loadEvents();
   }, [token]);
 
   const handleClose = () => {
@@ -116,7 +144,6 @@ function Dashboard() {
       }
   
       let response;
-  
       if (selectedEvent) {
         // UPDATE
         response = await EventApi.updateEvent({
@@ -138,7 +165,7 @@ function Dashboard() {
   
       // Refresh and cleanup
       setEvents(response.data?.events || []);
-      fetchEvents();
+      loadEvents();
       setShowModal(false);
       handleClose();
     } catch (error) {
@@ -154,7 +181,7 @@ function Dashboard() {
       await EventApi.deleteEvent(token,selectedEvent);
       toast.success('Event deleted successfully');
       handleDeleteClose();
-      fetchEvents();
+      loadEvents();
       setSelectedEvent(null);
     } catch (err) {
       toast.error('Failed to delete event');
@@ -182,13 +209,13 @@ function Dashboard() {
           <div className="col-auto ms-auto d-print-none" bis_skin_checked="1">
             <div className="btn-list" bis_skin_checked="1">
               <span className="d-none d-sm-inline">
-                  <FormField
-                    name="search"
-                    register={register}
-                    error={errors?.search}
-                    className="searchClass"
-                    placeholder="Ex. John's birthday"
-                  />
+                <FormField
+                  name="search"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="searchClass"
+                  placeholder="Ex. John's birthday"
+                />
               </span>
               <Header />
             </div>

@@ -1,14 +1,40 @@
 import axios from "axios";
 const API_PREFIX = process.env.REACT_APP_API_PREFIX;
-export const events = async ({token}) => {
-  return await axios
-    .get(`${API_PREFIX}/events`, {
+
+export const events = async ({
+  token,
+  page = 1,
+  perPage = 10,
+  search = '',
+  categoryId = null,
+  startDate = null,
+  endDate = null,
+  onSuccess,
+  onError
+}) => {
+  try {
+    const params = {
+      page,
+      per_page: perPage,
+      search,
+    };
+
+    if (categoryId) params.category_id = categoryId;
+    if (startDate) params.start_date = startDate;
+    if (endDate) params.end_date = endDate;
+
+    const response = await axios.get('/events', {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       },
-    })
-    .then((res) => res.data)
-    .catch((error) => Promise.reject(error?.response?.data));
+      params
+    });
+
+    onSuccess?.(response.data); // callback if defined
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    onError?.(error);
+  }
 };
 
 export const categories = async ({token}) => {
@@ -31,9 +57,11 @@ export const addEvent = async ({ token, data }) => {
 };
 
 export const updateEvent = async ({ id, token, data }) => {
-  return await axios.put(`${API_PREFIX}/events/`+ id, data, {
+  data.append('_method', 'PUT'); // method spoofing
+  return await axios.post(`${API_PREFIX}/events/${id}`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data',
     },
   });
 };
