@@ -43,7 +43,7 @@ src/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/react-boilerplate.git
+git clone https://github.com/miteshchavada36/evoevent-frontend.git
 cd react-boilerplate
 ```
 
@@ -150,8 +150,8 @@ Create an `.env` file in the root directory and add environment-specific files:
 Example `.env.development`:
 
 ```
-REACT_APP_API_URL=http://localhost:3000/api
-REACT_APP_ENV=development
+REACT_APP_API_URL=http://localhost:8000/api
+REACT_APP_IMAGE_URL = 'http://localhost:8000'
 ```
 
 > **Note**: Ensure environment variables start with `REACT_APP_` for Create React App to recognize them.
